@@ -1,13 +1,11 @@
 Summary:	Scalable vector graphics editor
 Name:		inkscape
-Version:	0.48.3.1
-Release:	3
+Version:	0.48.4
+Release:	1
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://download.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	f0fcc02088cc643634806064e7ab4ec3
-Patch0:		%{name}-libpng15.patch
-Patch1:		%{name}-poppler.patch
+# Source0-md5:	47bd8546e42ba396624eef9eb66b9b6c
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	autoconf
@@ -36,7 +34,7 @@ Requires(post,postun):	hicolor-icon-theme
 Requires(post,postun):	shared-mime-info
 Requires:	python-lxml
 Requires:	xdg-icon-theme
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Inkscape is a program for viewing, making, and editing two-dimensional
@@ -44,8 +42,6 @@ vector drawings.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
