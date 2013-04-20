@@ -1,7 +1,7 @@
 Summary:	Scalable vector graphics editor
 Name:		inkscape
 Version:	0.48.4
-Release:	2
+Release:	3
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://download.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
@@ -42,6 +42,11 @@ vector drawings.
 
 %prep
 %setup -q
+
+%{__sed} \
+	-i -e "s|AM_CONFIG_HEADER|AC_CONFIG_HEADERS|" \
+	-i -e "s|AM_PROG_CC_STDC|AC_PROG_CC|" \
+	configure.ac
 
 %build
 %{__libtoolize}
