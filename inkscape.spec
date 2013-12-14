@@ -1,16 +1,18 @@
 Summary:	Scalable vector graphics editor
 Name:		inkscape
 Version:	0.48.4
-Release:	6
+Release:	7
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://download.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	47bd8546e42ba396624eef9eb66b9b6c
+Patch0:		%{name}-spurious-comma.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	boost-devel
+BuildRequires:	freetype-devel >= 1:2.5.1
 BuildRequires:	gc-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gsl-devel
@@ -42,11 +44,15 @@ vector drawings.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %{__sed} \
 	-i -e "s|AM_CONFIG_HEADER|AC_CONFIG_HEADERS|" \
 	-i -e "s|AM_PROG_CC_STDC|AC_PROG_CC|" \
 	configure.ac
+
+# freetype 2.5.1 breakage
+%{__sed} -i "s|<freetype/|<|" src/libnrtype/FontFactory.h
 
 %build
 %{__libtoolize}
