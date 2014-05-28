@@ -1,12 +1,13 @@
 Summary:	Scalable vector graphics editor
 Name:		inkscape
 Version:	0.48.4
-Release:	8
+Release:	9
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://download.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
 # Source0-md5:	47bd8546e42ba396624eef9eb66b9b6c
 Patch0:		%{name}-spurious-comma.patch
+Patch1:		%{name}-poppler026.patch
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	autoconf
@@ -45,6 +46,7 @@ vector drawings.
 %prep
 %setup -q
 %patch0 -p0
+%patch1 -p0
 
 %{__sed} \
 	-i -e "s|AM_CONFIG_HEADER|AC_CONFIG_HEADERS|" \
@@ -74,8 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/{ca@valencia,en_US@piglatin,sr@latin,te_IN}
-rm -f $RPM_BUILD_ROOT%{_datadir}/inkscape/*/README
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{ca@valencia,en_US@piglatin,sr@latin,te_IN}
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/*/README
 
 %find_lang %{name}
 
@@ -85,12 +87,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %update_mime_database
-%update_desktop_database_post
+%update_desktop_database
 %update_icon_cache hicolor
 
 %postun
 %update_mime_database
-%update_desktop_database_postun
+%update_desktop_database
 %update_icon_cache hicolor
 
 %files -f %{name}.lang
