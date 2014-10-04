@@ -1,7 +1,7 @@
 Summary:	Scalable vector graphics editor
 Name:		inkscape
 Version:	0.48.5
-Release:	1
+Release:	2
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://download.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
@@ -51,6 +51,9 @@ vector drawings.
 
 # freetype 2.5.1 breakage
 %{__sed} -i "s|<freetype/|<|" src/libnrtype/FontFactory.h
+
+# gc fix (from arch)
+%{__sed} -i '/extern unsigned GC_version;/c unsigned GC_version=GC_VERSION_MAJOR<<16+GC_VERSION_MINOR<<8+GC_VERSION_MICRO;' configure.ac
 
 %build
 %{__libtoolize}
