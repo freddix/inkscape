@@ -1,11 +1,11 @@
 Summary:	Scalable vector graphics editor
 Name:		inkscape
-Version:	0.48.5
+Version:	0.91
 Release:	2
 License:	GPL v2, LGPL v2.1
 Group:		X11/Applications/Graphics
 Source0:	http://download.sourceforge.net/inkscape/%{name}-%{version}.tar.bz2
-# Source0-md5:	431cda5cd40cd4fdf2b89db1bdcce61f
+# Source0-md5:	278dfa4514adcde23546370ec2c84581
 URL:		http://www.inkscape.org/
 BuildRequires:	ImageMagick-c++-devel
 BuildRequires:	autoconf
@@ -75,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{ca@valencia,en_US@piglatin,sr@latin,te_IN}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{ca@valencia,en_US@piglatin,sr@latin}
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/inkscape/*/README
 
 %find_lang %{name}
@@ -99,8 +99,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README TRANSLATORS
 
 %dir %{_datadir}/inkscape
+%dir %{_datadir}/inkscape/attributes
+%dir %{_datadir}/inkscape/branding
 %dir %{_datadir}/inkscape/extensions
 %dir %{_datadir}/inkscape/extensions/Barcode
+%dir %{_datadir}/inkscape/extensions/ink2canvas
 %dir %{_datadir}/inkscape/extensions/xaml2svg
 %dir %{_datadir}/inkscape/filters
 %dir %{_datadir}/inkscape/screens
@@ -111,13 +114,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.js
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.pl
-%attr(755,root,root) %{_datadir}/inkscape/extensions/*.pm
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.py
 %attr(755,root,root) %{_datadir}/inkscape/extensions/*.sh
 %attr(755,root,root) %{_datadir}/inkscape/extensions/Barcode/*.py
+%attr(755,root,root) %{_datadir}/inkscape/extensions/ink2canvas/*.py
 
-%{_datadir}/inkscape/clipart
+%{_datadir}/inkscape/attributes/css_defaults
+%{_datadir}/inkscape/attributes/cssprops
+%{_datadir}/inkscape/attributes/svgprops
+
+%{_datadir}/inkscape/branding/draw-freely.svg
+%{_datadir}/inkscape/branding/inkscape.svg
+%{_datadir}/inkscape/branding/sodipodi.svg
+%{_datadir}/inkscape/branding/tux.svg
+
 %{_datadir}/inkscape/examples
+%{_datadir}/inkscape/extensions/*.conf
 %{_datadir}/inkscape/extensions/*.inx
 %{_datadir}/inkscape/extensions/*.svg
 %{_datadir}/inkscape/extensions/*.xml
@@ -153,9 +165,12 @@ rm -rf $RPM_BUILD_ROOT
 %lang(pt_BR) %{_datadir}/inkscape/templates/*.pt_BR.svg
 %lang(sk) %{_datadir}/inkscape/templates/*.sk.svg
 
+%{_datadir}/inkscape/symbols
+
 %{_datadir}/inkscape/templates/A4.svg
 %{_datadir}/inkscape/templates/A4_landscape.svg
 %{_datadir}/inkscape/templates/CD_cover_300dpi.svg
+%{_datadir}/inkscape/templates/CD_label_120x120.svg
 %{_datadir}/inkscape/templates/DVD_cover_regular_300dpi.svg
 %{_datadir}/inkscape/templates/DVD_cover_slim_300dpi.svg
 %{_datadir}/inkscape/templates/DVD_cover_superslim_300dpi.svg
@@ -163,6 +178,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/inkscape/templates/LaTeX_Beamer.svg
 %{_datadir}/inkscape/templates/Letter.svg
 %{_datadir}/inkscape/templates/Letter_landscape.svg
+%{_datadir}/inkscape/templates/Typography_Canvas.svg
 %{_datadir}/inkscape/templates/black_opaque.svg
 %{_datadir}/inkscape/templates/business_card_85x54mm.svg
 %{_datadir}/inkscape/templates/business_card_90x50mm.svg
